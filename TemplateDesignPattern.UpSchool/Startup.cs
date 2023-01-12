@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TemplateDesignPattern.UpSchool.DAL;
+using TemplateDesignPattern.UpSchool.DAL.Entities;
 
 namespace TemplateDesignPattern.UpSchool
 {
@@ -23,6 +25,8 @@ namespace TemplateDesignPattern.UpSchool
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Context>();
+            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
             services.AddControllersWithViews();
         }
 
@@ -41,7 +45,7 @@ namespace TemplateDesignPattern.UpSchool
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication(); //kayýt yapar ama giriþ yapmaz bu olmazsa ve mutlaka UseAuthorization'dan önce gelmeli
             app.UseRouting();
 
             app.UseAuthorization();
