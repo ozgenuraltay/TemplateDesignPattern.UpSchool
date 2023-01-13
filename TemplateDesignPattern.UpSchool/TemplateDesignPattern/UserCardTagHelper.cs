@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
@@ -11,21 +12,34 @@ namespace TemplateDesignPattern.UpSchool.TemplateDesignPattern
     public class UserCardTagHelper:TagHelper
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<AppUser> _userManager;
 
-        public UserCardTagHelper(IHttpContextAccessor httpContextAccessor)
+        public UserCardTagHelper(IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager)
         {
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
         }
 
         public AppUser AppUser { get; set; }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             UserCardTemplate userCardTemplate;
 
+            var user = await _userManager.GetUserAsync(_httpContextAccessor.HttpContext.User);
+
             if (_httpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
             {
-                userCardTemplate = new GoldUserCardTemplate();
+                if (user.EmailConfirmed==true)
+                {
+                    userCardTemplate = new PremiumCardTemplate();
+
+                }
+                else
+                {
+                    userCardTemplate = new GoldUserCardTemplate();
+
+                }
             }
             else
             {

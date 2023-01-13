@@ -14,9 +14,12 @@ namespace TemplateDesignPattern.UpSchool.TemplateDesignPattern
 
         protected override string SetImage()
         {
-            return "<img class='card-img-top' src='~/images/user.png' style='width:50px; height:50px;'>";
+            return "<img class='card-img-top' src='../images/user.png' style='width:50px; height:50px;'>";
+        }
 
-
-                }
+        protected override string SetScore()
+        {
+            return string.Empty;
+        }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TemplateDesignPattern.UpSchool.TemplateDesignPattern
 {
-    public class GoldUserCardTemplate : UserCardTemplate
+    public class PremiumCardTemplate : UserCardTemplate
     {
         protected override string SetFooter()
         {
@@ -23,7 +23,8 @@ namespace TemplateDesignPattern.UpSchool.TemplateDesignPattern
 
         protected override string SetScore()
         {
-            return string.Empty;
+            return $"<p>{AppUser.Score}</p>";
+
         }
     }
 }

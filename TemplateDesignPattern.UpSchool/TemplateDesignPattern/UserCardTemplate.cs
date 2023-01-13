@@ -20,12 +20,18 @@ namespace TemplateDesignPattern.UpSchool.TemplateDesignPattern
 
         protected abstract string SetFooter();
 
+        protected abstract string SetScore();
+
         public string Build()
         {
             var sb =new  StringBuilder();
 
             sb.Append("<div class='card'>");
+            sb.Append("<div class='row'><div class='col-md-6'>");
             sb.Append(SetImage());
+            sb.Append("</div><div class='col-md-5 text-right mt-3' style='color:blue'>");
+            sb.Append(SetScore());
+            sb.Append("</div></div>");
             sb.Append($@"<div class='card-body'>
                         <h5>{AppUser.UserName}</h5>
                         <p>{AppUser.Description}</p>");
